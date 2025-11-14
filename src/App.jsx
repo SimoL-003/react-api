@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ActorCard from "./components/widgets/ActorCard";
 
 function App() {
   const [actresses, setActresses] = useState([]);
-  console.log(actresses);
 
   function fetchActresses() {
     axios
@@ -32,18 +32,15 @@ function App() {
                 name,
                 nationality,
               }) => (
-                <li key={id} className="card p-8 border-2 border-white">
-                  <div className="card__text">
-                    <div className="card__img">
-                      <img src={image} alt={name} />
-                    </div>
-                    <h4>{name}</h4>
-                    <p>{birth_year}</p>
-                    <p>{nationality}</p>
-                    <p>{awards}</p>
-                    <p>{biography}</p>
-                  </div>
-                </li>
+                <ActorCard
+                  key={id}
+                  awards={awards}
+                  biography={biography}
+                  birth_year={birth_year}
+                  image={image}
+                  name={name}
+                  nationality={nationality}
+                />
               )
             )}
           </ul>
