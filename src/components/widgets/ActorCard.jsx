@@ -9,8 +9,8 @@ export default function ActorCard({
   nationality,
 }) {
   return (
-    <li className="card">
-      <div className="card__img flex items-center">
+    <li className="card shadow-xl">
+      <div className="card__img flex items-center justify-center">
         <img
           className="h-[180px] w-[140px] object-cover rounded-xl"
           src={image}

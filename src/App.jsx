@@ -23,15 +23,14 @@ function App() {
     fecthActors();
   }, []);
 
-  console.log(actresses, actors);
-
   return (
     <>
-      <main className="min-h-screen py-16 bg-neutral-900">
+      <main className="min-h-screen py-16 bg-slate-900">
         <div className="container">
-          <h1>Holliwood Walk of Fame</h1>
+          <h1 className="mb-8 text-center">Holliwood Walk of Fame</h1>
 
-          <ul className="card-container py-8 grid grid-cols-2 gap-8">
+          {/* MALE ACTORS CARDS */}
+          <ul className="card-container py-8 grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-8">
             {actors.map(
               ({
                 awards,
@@ -55,7 +54,8 @@ function App() {
             )}
           </ul>
 
-          <ul className="card-container grid grid-cols-4 gap-4">
+          {/* ACTRESSES CARDS */}
+          <ul className="card-container py-8 grid grid-cols-2 gap-x-7 gap-y-8">
             {actresses.map(
               ({
                 awards,

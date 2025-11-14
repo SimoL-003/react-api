@@ -1,8 +1,8 @@
 export default function CardLine({ title, text }) {
   return (
-    <div>
+    <div className="mt-2">
       <h5 className="inline">{title}</h5>
-      <span>{text}</span>
+      <span className="text-base font-normal leading-[1.5px]">{text}</span>
     </div>
   );
 }
