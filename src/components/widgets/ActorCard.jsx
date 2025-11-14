@@ -7,16 +7,32 @@ export default function ActorCard({
   nationality,
 }) {
   return (
-    <li className="card p-8 border-2 border-white">
+    <li className="card">
+      <div className="card__img">
+        <img
+          className="h-full object-cover rounded-tl-2xl"
+          src={image}
+          alt={name}
+        />
+      </div>
       <div className="card__text">
-        <div className="card__img">
-          <img src={image} alt={name} />
-        </div>
         <h4>{name}</h4>
-        <p>{birth_year}</p>
-        <p>{nationality}</p>
-        <p>{awards}</p>
-        <p>{biography}</p>
+        <p>
+          <span>Birth year: </span>
+          {birth_year}
+        </p>
+        <p>
+          <span>Nationality: </span>
+          {nationality}
+        </p>
+        <p>
+          <span>Awards: </span>
+          {awards}
+        </p>
+        <p>
+          <span>Bio: </span>
+          {biography}
+        </p>
       </div>
     </li>
   );
