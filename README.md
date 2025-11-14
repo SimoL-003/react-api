@@ -2,9 +2,9 @@
 
 Creare una piccola app che ci mostri un elenco di attori o attrici usando uno di questi due endpoint, a piacimento:
 
-- Lista di Attrici: https://lanciweb.github.io/demo/api/actresses/
+- Lista di Attrici: <https://lanciweb.github.io/demo/api/actresses/>
 
-- Lista di Attori: https://lanciweb.github.io/demo/api/actors/
+- Lista di Attori: <https://lanciweb.github.io/demo/api/actors/>
 
 ## MILESTONES
 
