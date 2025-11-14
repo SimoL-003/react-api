@@ -5,6 +5,7 @@ export default function ActorCard({
   biography,
   birth_year,
   image,
+  known_for,
   name,
   nationality,
 }) {
@@ -22,6 +23,7 @@ export default function ActorCard({
         <CardLine title={"Birth year: "} text={birth_year} />
         <CardLine title={"Nationality: "} text={nationality} />
         <CardLine title={"Awards: "} text={awards} />
+        <CardLine title={"Known for: "} text={known_for} />
         <CardLine title={"Bio: "} text={biography} />
       </div>
     </li>

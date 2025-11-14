@@ -36,59 +36,50 @@ function App() {
 
           {/* MALE ACTORS CARDS */}
           <ul className="card-container py-8 grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-8">
-            {allActors.map(
-              (
-                { awards, biography, birth_year, id, image, name, nationality },
-                index
-              ) => (
-                <ActorCard
-                  key={index}
-                  awards={
-                    typeof awards == "string" ? awards : awards.join(", ")
+            {allActors
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(
+                (
+                  {
+                    awards,
+                    biography,
+                    birth_year,
+                    id,
+                    image,
+                    name,
+                    nationality,
+                    most_famous_movies,
+                    known_for,
+                  },
+                  index
+                ) => {
+                  let bestFilms;
+                  if (most_famous_movies) {
+                    bestFilms = most_famous_movies.join(", ");
                   }
-                  biography={biography}
-                  birth_year={birth_year}
-                  image={image}
-                  name={name}
-                  nationality={nationality}
-                />
-              )
-            )}
+                  if (known_for) {
+                    bestFilms = known_for.join(", ");
+                  }
+                  return (
+                    <ActorCard
+                      key={index}
+                      awards={
+                        typeof awards == "string" ? awards : awards.join(", ")
+                      }
+                      biography={biography}
+                      birth_year={birth_year}
+                      image={image}
+                      known_for={bestFilms}
+                      name={name}
+                      nationality={nationality}
+                    />
+                  );
+                }
+              )}
           </ul>
-
-          {/* ACTRESSES CARDS */}
-          {/* <ul className="card-container py-8 grid grid-cols-2 gap-x-7 gap-y-8">
-            {actresses.map(
-              ({
-                awards,
-                biography,
-                birth_year,
-                id,
-                image,
-                name,
-                nationality,
-              }) => (
-                <ActorCard
-                  key={id}
-                  awards={awards}
-                  biography={biography}
-                  birth_year={birth_year}
-                  image={image}
-                  name={name}
-                  nationality={nationality}
-                />
-              )
-            )}
-          </ul> */}
         </div>
       </main>
     </>
   );
 }
-// nome;
-// anno di nascita;
-// nazionalità;
-// biografia;
-// immagine;
-// riconoscimenti.
 export default App;
