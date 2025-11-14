@@ -5,6 +5,7 @@ import ActorCard from "./components/widgets/ActorCard";
 function App() {
   const [actresses, setActresses] = useState([]);
   const [actors, setActors] = useState([]);
+  const [allActors, setAllActors] = useState([]);
 
   function fetchActresses() {
     axios
@@ -23,6 +24,10 @@ function App() {
     fecthActors();
   }, []);
 
+  useEffect(() => {
+    setAllActors(actors.concat(actresses));
+  }, [actors, actresses]);
+
   return (
     <>
       <main className="min-h-screen py-16 bg-slate-900">
@@ -31,19 +36,16 @@ function App() {
 
           {/* MALE ACTORS CARDS */}
           <ul className="card-container py-8 grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-8">
-            {actors.map(
-              ({
-                awards,
-                biography,
-                birth_year,
-                id,
-                image,
-                name,
-                nationality,
-              }) => (
+            {allActors.map(
+              (
+                { awards, biography, birth_year, id, image, name, nationality },
+                index
+              ) => (
                 <ActorCard
-                  key={id}
-                  awards={awards.join(", ")}
+                  key={index}
+                  awards={
+                    typeof awards == "string" ? awards : awards.join(", ")
+                  }
                   biography={biography}
                   birth_year={birth_year}
                   image={image}
@@ -55,7 +57,7 @@ function App() {
           </ul>
 
           {/* ACTRESSES CARDS */}
-          <ul className="card-container py-8 grid grid-cols-2 gap-x-7 gap-y-8">
+          {/* <ul className="card-container py-8 grid grid-cols-2 gap-x-7 gap-y-8">
             {actresses.map(
               ({
                 awards,
@@ -77,7 +79,7 @@ function App() {
                 />
               )
             )}
-          </ul>
+          </ul> */}
         </div>
       </main>
     </>
