@@ -6,6 +6,9 @@ function App() {
   const [actresses, setActresses] = useState([]);
   const [actors, setActors] = useState([]);
   const [allActors, setAllActors] = useState([]);
+  const [nationalities, setNationalities] = useState([]);
+  const [nationalitySelect, setNationalitySelect] = useState("");
+  const [allActorsFiltered, setAllActorsFiltered] = useState(allActors);
 
   function fetchActresses() {
     axios
@@ -24,9 +27,27 @@ function App() {
     fecthActors();
   }, []);
 
+  // Unisce gli array di attori e attrici
   useEffect(() => {
     setAllActors(actors.concat(actresses));
   }, [actors, actresses]);
+
+  // Crea l'array delle nazionalità
+  useEffect(() => {
+    const nats = [
+      ...new Set(allActors.map((curActor) => curActor.nationality)),
+    ].sort();
+    setNationalities(nats);
+  }, [allActors]);
+
+  // Filtro
+  useEffect(() => {
+    nationalitySelect
+      ? setAllActorsFiltered(
+          allActors.filter((a) => a.nationality === nationalitySelect)
+        )
+      : setAllActorsFiltered(allActors);
+  }, [nationalitySelect, allActors]);
 
   return (
     <>
@@ -34,9 +55,32 @@ function App() {
         <div className="container">
           <h1 className="mb-8 text-center">Holliwood Walk of Fame</h1>
 
+          <div className="filter flex gap-8">
+            <select
+              name="nationality"
+              id="nationality"
+              value={nationalitySelect}
+              onChange={(e) => setNationalitySelect(e.target.value)}
+              className="px-4 py-2 text-violet-200 outline-2 outline-blue-600  focus-visible:outline-amber-400 rounded-md bordr-out transition-colors duration-150"
+            >
+              <option value="">-- Filter by nationality --</option>
+              {nationalities.map((curNationality, index) => (
+                <option key={index} value={curNationality}>
+                  {curNationality}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => setNationalitySelect("")}
+              className="px-4 py-2 text-violet-200 outline-2 outline-blue-600  rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-150"
+            >
+              Reset
+            </button>
+          </div>
+
           {/* MALE ACTORS CARDS */}
           <ul className="card-container py-8 grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-8">
-            {allActors
+            {allActorsFiltered
               .sort((a, b) => a.name.localeCompare(b.name))
               .map(
                 (
@@ -53,13 +97,9 @@ function App() {
                   },
                   index
                 ) => {
-                  let bestFilms;
-                  if (most_famous_movies) {
-                    bestFilms = most_famous_movies.join(", ");
-                  }
-                  if (known_for) {
-                    bestFilms = known_for.join(", ");
-                  }
+                  const bestFilms = (most_famous_movies || known_for).join(
+                    ", "
+                  );
                   return (
                     <ActorCard
                       key={index}
