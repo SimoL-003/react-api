@@ -1,5 +1,7 @@
 # React API
 
+**Result**: <https://react-api-actors.netlify.app>
+
 Creare una piccola app che ci mostri un elenco di attori o attrici usando uno di questi due endpoint, a piacimento:
 
 - Lista di Attrici: <https://lanciweb.github.io/demo/api/actresses/>

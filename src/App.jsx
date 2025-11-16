@@ -39,7 +39,7 @@ function App() {
   // Unisce gli array di attori e attrici
   useEffect(() => {
     setAllActors(actorsIdMod.concat(actresses));
-  }, [actors, actresses]);
+  }, [actorsIdMod, actresses]);
 
   // Crea l'array delle nazionalità
   useEffect(() => {
