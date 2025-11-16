@@ -1,4 +1,5 @@
 import CardLine from "../elements/CardLine";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function ActorCard({
   awards,
@@ -10,7 +11,13 @@ export default function ActorCard({
   nationality,
 }) {
   return (
-    <li className="card shadow-xl">
+    <motion.li
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      exit={{ opacity: 0, y: -50 }}
+      className="card shadow-xl"
+    >
       <div className="card__img flex items-center justify-center">
         <img
           className="h-[180px] w-[140px] object-cover rounded-xl"
@@ -26,6 +33,6 @@ export default function ActorCard({
         <CardLine title={"Known for: "} text={known_for} />
         <CardLine title={"Bio: "} text={biography} />
       </div>
-    </li>
+    </motion.li>
   );
 }

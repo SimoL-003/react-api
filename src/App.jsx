@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ActorCard from "./components/widgets/ActorCard";
+import { AnimatePresence } from "motion/react";
 
 function App() {
   const [actresses, setActresses] = useState([]);
@@ -9,6 +10,7 @@ function App() {
   const [nationalities, setNationalities] = useState([]);
   const [nationalitySelect, setNationalitySelect] = useState("");
   const [allActorsFiltered, setAllActorsFiltered] = useState(allActors);
+  const [actorsIdMod, setActorsIdMod] = useState(actors);
 
   function fetchActresses() {
     axios
@@ -27,9 +29,16 @@ function App() {
     fecthActors();
   }, []);
 
+  // Sistema gli ID dell'array actors (altrimenti combaciano con quelli dell'array actresses)
+  useEffect(() => {
+    setActorsIdMod(
+      actors.map((curActor) => ({ ...curActor, id: curActor.id + 1000 }))
+    );
+  }, [actors]);
+
   // Unisce gli array di attori e attrici
   useEffect(() => {
-    setAllActors(actors.concat(actresses));
+    setAllActors(actorsIdMod.concat(actresses));
   }, [actors, actresses]);
 
   // Crea l'array delle nazionalità
@@ -78,13 +87,13 @@ function App() {
             </button>
           </div>
 
-          {/* MALE ACTORS CARDS */}
+          {/* ACTORS CARDS */}
           <ul className="card-container py-8 grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-8">
-            {allActorsFiltered
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map(
-                (
-                  {
+            <AnimatePresence>
+              {allActorsFiltered
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(
+                  ({
                     awards,
                     biography,
                     birth_year,
@@ -94,28 +103,27 @@ function App() {
                     nationality,
                     most_famous_movies,
                     known_for,
-                  },
-                  index
-                ) => {
-                  const bestFilms = (most_famous_movies || known_for).join(
-                    ", "
-                  );
-                  return (
-                    <ActorCard
-                      key={index}
-                      awards={
-                        typeof awards == "string" ? awards : awards.join(", ")
-                      }
-                      biography={biography}
-                      birth_year={birth_year}
-                      image={image}
-                      known_for={bestFilms}
-                      name={name}
-                      nationality={nationality}
-                    />
-                  );
-                }
-              )}
+                  }) => {
+                    const bestFilms = (most_famous_movies || known_for).join(
+                      ", "
+                    );
+                    return (
+                      <ActorCard
+                        key={id}
+                        awards={
+                          typeof awards == "string" ? awards : awards.join(", ")
+                        }
+                        biography={biography}
+                        birth_year={birth_year}
+                        image={image}
+                        known_for={bestFilms}
+                        name={name}
+                        nationality={nationality}
+                      />
+                    );
+                  }
+                )}
+            </AnimatePresence>
           </ul>
         </div>
       </main>
